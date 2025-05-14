@@ -9,7 +9,7 @@ import (
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("Requisição recebida em /hello")	
-	fmt.Fprint(w, "Olá mundo testando hot reload, funcionou!?")
+	fmt.Fprint(w, "Olá mundo, funcionou!?")
 }
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {
