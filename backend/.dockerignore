@@ -1,0 +1,15 @@
+.git
+.gitignore
+
+.vscode/
+
+*.idea/
+*.DS_Store
+
+/meu-servico 
+/bin/
+/vendor/
+
+tmp/
+
+air_errors.log

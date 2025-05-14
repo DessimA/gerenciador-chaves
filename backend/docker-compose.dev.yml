@@ -1,0 +1,15 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: gerenciador-chaves-dev-img 
+    container_name: gerenciador-chaves-dev-container
+    ports:
+      - "8888:8080" 
+    volumes:
+      - .:/app                
+      
+    environment:      
+      - APP_ENV=development
+      
