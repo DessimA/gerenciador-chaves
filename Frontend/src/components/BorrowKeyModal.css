@@ -1,0 +1,84 @@
+/* Reusing modal-overlay and modal-content from ConfirmModal.css */
+/* You might want to extract these common styles into a base-modal.css */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #2a2a2a;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  color: #f0f0f0;
+  max-width: 400px;
+  width: 90%;
+}
+
+.modal-content h2 {
+  margin-bottom: 1.5rem;
+  color: #FFC107; /* Theme color */
+}
+
+.borrow-form-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.borrow-form-modal input {
+  background-color: #333;
+  color: #f0f0f0;
+  border: 1px solid #555;
+  padding: 0.5rem;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  height: 40px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.modal-actions button {
+  padding: 0.7rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.confirm-button {
+  background-color: #FFC107; /* Theme color */
+  color: #1a1a1a;
+}
+
+.confirm-button:hover {
+  background-color: #FF8F00; /* Theme hover color */
+}
+
+.cancel-button {
+  background-color: #555; /* Darker gray for cancel */
+  color: #f0f0f0;
+}
+
+.cancel-button:hover {
+  background-color: #666;
+}

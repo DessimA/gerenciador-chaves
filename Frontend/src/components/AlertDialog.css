@@ -1,0 +1,48 @@
+/* Reusing modal-overlay and modal-content from ConfirmModal.css */
+/* You might want to extract these common styles into a base-modal.css */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #2a2a2a;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  color: #f0f0f0;
+  max-width: 400px;
+  width: 90%;
+}
+
+.modal-content p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.modal-actions {
+  margin-top: 1rem;
+}
+
+.alert-button {
+  background-color: #FFC107; /* Changed color */
+  color: #1a1a1a;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.alert-button:hover {
+  background-color: #FF8F00; /* Changed color */
+}

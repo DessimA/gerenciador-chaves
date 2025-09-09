@@ -1,0 +1,217 @@
+.background-blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: none; /* Remove blur */
+  -webkit-filter: none; /* Remove blur */
+  z-index: -1;
+  background-color: rgba(0, 0, 0, 0.8); /* Black overlay with 80% opacity */
+  background-blend-mode: overlay; /* Blend mode for the overlay */
+  background-image: url('/background.png'); /* Changed path to be relative to public folder */
+}
+
+.content-container {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex; /* Use flexbox for centering content */
+  flex-direction: column; /* Stack content vertically */
+  align-items: center; /* Center horizontally */
+  text-align: center; /* Center text within the container */
+}
+
+.add-key-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  align-items: stretch; /* Ensure items stretch to fill height */
+  flex-direction: column; /* Stack inputs and button vertically */
+  align-items: stretch; /* Stretch items to full width */
+  width: 100%; /* Take full width of content-container */
+  max-width: 400px; /* Limit width for better appearance */
+  margin: 0 auto 2rem auto; /* Center the form */
+}
+
+.add-key-form input {
+  flex: 1;
+  min-width: 150px;
+  height: 40px; /* Fixed height for consistency */
+  width: 100%; /* Full width */
+  box-sizing: border-box; /* Include padding and border in width */
+}
+
+.add-key-form button {
+  height: 40px; /* Fixed height for consistency */
+  padding: 0 1.5rem; /* Adjust padding */
+  width: 100%; /* Full width */
+  margin-top: 1rem; /* Space between last input and button */
+}
+
+.key-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  min-height: 100px; /* Ensure a minimum height for the grid container */
+  overflow-y: auto; /* Allow vertical scrolling if content overflows */
+  width: 100%; /* Ensure it takes full width */
+}
+
+.key-item {
+  background-color: rgba(42, 42, 42, 0.8);
+  backdrop-filter: blur(5px);
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 5px solid #FFC107; /* Changed color */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #FFFFFF;
+}
+
+.key-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.key-actions button {
+  margin-left: 0;
+  margin-top: 0;
+}
+
+.edit-key-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: stretch;
+  width: 100%;
+}
+
+.edit-key-form input {
+  flex: 1;
+  min-width: 100px;
+  height: 35px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.edit-key-form button {
+  height: 35px;
+  padding: 0.7rem;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+/* Media Queries for smaller screens */
+@media (max-width: 768px) {
+  .content-container {
+    padding: 1rem;
+  }
+
+  .add-key-form,
+  .edit-key-form {
+    max-width: 100%;
+  }
+
+  .key-list {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+    /* Ensure items are visible */
+    display: block; /* Change to block to remove grid behavior on mobile */
+  }
+
+  .key-item {
+    margin-bottom: 1rem;
+    /* background-color: rgba(255, 0, 0, 0.5) !important; /* Temporary red background for visibility */
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .key-item {
+    padding: 0.8rem;
+  }
+
+  .key-info span {
+    font-size: 0.85rem;
+  }
+}
+
+.key-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.key-info span {
+  display: block;
+}
+
+/* Remove previous media query for key-info as it conflicts with stacking */
+@media (min-width: 769px) {
+  .key-info {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+  }
+  .key-info span {
+    flex-basis: auto;
+  }
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #FFC107; /* Changed color */
+  text-shadow: 0 0 10px rgba(255, 193, 7, 0.8), 0 0 20px rgba(255, 193, 7, 0.6); /* Neon effect */
+  animation: pulse 2s infinite alternate; /* Subtle pulse animation */
+  margin-bottom: 2rem; /* Add some space below the title */
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.02);
+    opacity: 0.9;
+  }
+}
+
+.add-key-button {
+  background-color: #FFC107; /* Changed color */
+  color: #1a1a1a;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem; /* Space from title */
+  margin-bottom: 2rem; /* Add space below the button */
+}
+
+.add-key-button:hover {
+  background-color: #FF8F00; /* Changed color */
+}

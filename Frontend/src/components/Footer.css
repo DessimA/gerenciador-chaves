@@ -1,0 +1,29 @@
+.footer {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-links a {
+  color: #f0f0f0;
+  text-decoration: none;
+  margin: 0 0.5rem;
+  display: flex; /* To center the icon */
+  align-items: center; /* To center the icon */
+  justify-content: center; /* To center the icon */
+}
+}
+
+.social-links a:hover {
+  color: #f0ad4e;
+}

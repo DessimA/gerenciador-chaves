@@ -1,0 +1,23 @@
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.github-link {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex; /* To center the icon */
+  align-items: center; /* To center the icon */
+  justify-content: center; /* To center the icon */
+}
+
+.github-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
