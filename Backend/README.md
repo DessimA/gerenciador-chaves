@@ -1,100 +1,137 @@
-# Gerenciador de Chaves de Prédio
+# Backend do Gerenciador de Chaves (Go) 🚀
 
-Este é um projeto didático em Go que implementa uma API REST simples para gerenciar o empréstimo e a devolução de chaves de um prédio.
-
-## Funcionalidades
-
-*   Cadastrar uma nova chave.
-*   Listar todas as chaves.
-*   Consultar o status de uma chave específica.
-*   Emprestar uma chave.
-*   Devolver uma chave.
+Este é o coração do sistema de gerenciamento de chaves, uma API RESTful construída em Go. Ele é responsável por toda a lógica de negócio, manipulação de dados e interação com o banco de dados.
 
 ## Tecnologias Utilizadas
 
-*   **Linguagem:** Go
-*   **Roteamento HTTP:** `gorilla/mux`
-*   **Banco de Dados:** SQLite
-*   **Containerização:** Docker
+-   **Go**: Linguagem de programação principal.
+-   **Gorilla Mux**: Roteador HTTP para lidar com as requisições da API.
+-   **SQLite**: Banco de dados leve e simples, ideal para este projeto didático.
 
 ## Estrutura do Projeto
 
-```
-/
-├── main.go               # Ponto de entrada da aplicação
-├── models/
-│   └── key.go            # Estrutura de dados da chave
-├── handlers/
-│   └── key_handlers.go   # Handlers para as rotas da API
-├── database/
-│   └── db.go             # Configuração do banco de dados
-├── go.mod                # Dependências do Go
-├── Dockerfile            # Containerização da aplicação
-└── README.md             # Documentação
-```
+-   `main.go`: Ponto de entrada da aplicação, onde o servidor HTTP é configurado e as rotas são definidas.
+-   `models/key.go`: Define a estrutura de dados para uma chave (`Key`) e seus métodos associados.
+-   `handlers/key_handlers.go`: Contém as funções (handlers) que processam as requisições HTTP para cada endpoint da API, interagindo com o banco de dados.
+-   `database/db.go`: Responsável pela inicialização do banco de dados SQLite e pela criação da tabela `keys` se ela não existir.
+-   `Dockerfile`: Arquivo para construir a imagem Docker do backend.
 
-## API Endpoints
+## Modelagem de Dados (SQLite)
 
-| Método | Rota                  | Descrição                               | Corpo da Requisição (Exemplo)                               |
-| :----- | :-------------------- | :-------------------------------------- | :---------------------------------------------------------- |
-| `POST` | `/keys`               | Cadastra uma nova chave                 | `{"apartment_number": "101", "key_type": "apartamento"}`    |
-| `GET`  | `/keys`               | Lista todas as chaves                   | N/A                                                         |
-| `GET`  | `/keys/{id}`          | Consulta uma chave específica           | N/A                                                         |
-| `PUT`  | `/keys/{id}/borrow`   | Empresta uma chave                      | `{"borrower_name": "João Silva"}`                           |
-| `PUT`  | `/keys/{id}/return`   | Devolve uma chave                       | N/A                                                         |
+O banco de dados utiliza uma única tabela chamada `keys` com a seguinte estrutura:
 
-## Como Executar
+| Campo            | Tipo      | Descrição                               |
+| :--------------- | :-------- | :-------------------------------------- |
+| `id`             | INTEGER   | Chave primária, auto-incremento         |
+| `apartment_number` | TEXT      | Número do apartamento associado à chave |
+| `key_type`       | TEXT      | Tipo da chave (ex: "apartamento", "garagem", "deposito") |
+| `status`         | TEXT      | Status da chave ("disponivel", "emprestada") |
+| `borrowed_at`    | DATETIME  | Timestamp de quando a chave foi emprestada (pode ser NULL) |
+| `returned_at`    | DATETIME  | Timestamp de quando a chave foi devolvida (pode ser NULL) |
+| `borrower_name`  | TEXT      | Nome de quem pegou a chave (pode ser NULL) |
 
-### Usando Go (Localmente)
+## Endpoints da API
 
-1.  **Clone o repositório:**
-    ```bash
-    git clone https://github.com/seu-usuario/gerenciador-chaves.git
-    cd gerenciador-chaves
+A API expõe os seguintes endpoints:
+
+### `GET /keys`
+
+-   **Descrição**: Lista todas as chaves cadastradas no sistema.
+-   **Resposta**: Um array de objetos `Key`.
+
+### `POST /keys`
+
+-   **Descrição**: Cadastra uma nova chave.
+-   **Corpo da Requisição (JSON)**:
+    ```json
+    {
+        "apartment_number": "string",
+        "key_type": "string"
+    }
     ```
+-   **Resposta**: O objeto `Key` da chave recém-criada.
 
-2.  **Instale as dependências:**
+### `GET /keys/{id}`
+
+-   **Descrição**: Consulta os detalhes de uma chave específica pelo seu `id`.
+-   **Parâmetros de URL**:
+    -   `id`: ID da chave (inteiro).
+-   **Resposta**: O objeto `Key` correspondente.
+
+### `PUT /keys/{id}/borrow`
+
+-   **Descrição**: Marca uma chave como emprestada.
+-   **Parâmetros de URL**:
+    -   `id`: ID da chave (inteiro).
+-   **Corpo da Requisição (JSON)**:
+    ```json
+    {
+        "borrower_name": "string"
+    }
+    ```
+-   **Resposta**: O objeto `Key` atualizado.
+
+### `PUT /keys/{id}/return`
+
+-   **Descrição**: Marca uma chave como devolvida.
+-   **Parâmetros de URL**:
+    -   `id`: ID da chave (inteiro).
+-   **Resposta**: O objeto `Key` atualizado.
+
+## Como Rodar
+
+### Pré-requisitos
+
+-   [Go](https://golang.org/doc/install) (versão 1.16 ou superior)
+-   [Docker](https://docs.docker.com/get-docker/) (opcional, para rodar via container)
+
+### Rodando Localmente
+
+1.  Navegue até o diretório `Backend`:
+    ```bash
+    cd Backend
+    ```
+2.  Baixe as dependências:
     ```bash
     go mod tidy
     ```
-
-3.  **Execute a aplicação:**
+3.  Execute a aplicação:
     ```bash
     go run main.go
     ```
-    O servidor estará rodando em `http://localhost:8080`.
+    A API estará disponível em `http://localhost:8080`.
 
-### Usando Docker
+### Rodando com Docker
 
-1.  **Construa a imagem Docker:**
+1.  Navegue até o diretório `Backend`:
     ```bash
-    docker build -t gerenciador-chaves .
+    cd Backend
     ```
-
-2.  **Execute o container:**
+2.  Construa a imagem Docker:
     ```bash
-    docker run -p 8080:8080 gerenciador-chaves
+    docker build -t key-manager-backend .
     ```
-    O servidor estará acessível em `http://localhost:8080`.
-
-## Exemplos de Uso com `curl`
-
-*   **Cadastrar uma nova chave:**
+3.  Execute o container, mapeando a porta 8080:
     ```bash
-    curl -X POST http://localhost:8080/keys -H "Content-Type: application/json" -d '{"apartment_number": "205", "key_type": "garagem"}'
+    docker run -p 8080:8080 key-manager-backend
     ```
+    A API estará disponível em `http://localhost:8080`.
 
-*   **Listar todas as chaves:**
-    ```bash
-    curl http://localhost:8080/keys
-    ```
+## Exemplos de Uso (com `curl`)
 
-*   **Emprestar a chave com ID 1:**
-    ```bash
-    curl -X PUT http://localhost:8080/keys/1/borrow -H "Content-Type: application/json" -d '{"borrower_name": "Maria Souza"}'
-    ```
+```bash
+# Cadastrar uma nova chave
+curl -X POST http://localhost:8080/keys -H "Content-Type: application/json" -d '{"apartment_number":"101","key_type":"apartamento"}'
 
-*   **Devolver a chave com ID 1:**
-    ```bash
-    curl -X PUT http://localhost:8080/keys/1/return
-    ```
+# Listar todas as chaves
+curl http://localhost:8080/keys
+
+# Consultar uma chave específica (substitua {id} pelo ID real da chave)
+curl http://localhost:8080/keys/{id}
+
+# Emprestar uma chave (substitua {id} pelo ID real da chave)
+curl -X PUT http://localhost:8080/keys/{id}/borrow -H "Content-Type: application/json" -d '{"borrower_name":"João Silva"}'
+
+# Devolver uma chave (substitua {id} pelo ID real da chave)
+curl -X PUT http://localhost:8080/keys/{id}/return
+```

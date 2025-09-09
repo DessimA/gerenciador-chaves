@@ -1,12 +1,55 @@
-# React + Vite
+# Frontend do Gerenciador de Chaves (React) ⚛️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é o frontend do sistema de gerenciamento de chaves, uma aplicação web interativa construída com React. Ele oferece uma interface amigável para visualizar, cadastrar, emprestar e devolver chaves, comunicando-se com a API do backend.
 
-Currently, two official plugins are available:
+## Tecnologias Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-   **React**: Biblioteca JavaScript para construção de interfaces de usuário.
+-   **Vite**: Ferramenta de build rápida para projetos web modernos.
+-   **JavaScript/JSX**: Linguagem de programação.
+-   **CSS**: Estilização dos componentes.
 
-## Expanding the ESLint configuration
+## Estrutura do Projeto
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+-   `public/`: Contém arquivos estáticos como `index.html` e assets.
+-   `src/`: Código fonte da aplicação.
+    -   `main.jsx`: Ponto de entrada da aplicação React.
+    -   `App.jsx`: Componente principal da aplicação.
+    -   `assets/`: Imagens e outros recursos estáticos.
+    -   `components/`: Contém os componentes reutilizáveis da interface de usuário:
+        -   `Navbar.jsx`: Barra de navegação.
+        -   `Footer.jsx`: Rodapé da aplicação.
+        -   `KeyFormModal.jsx`: Modal para cadastrar ou editar chaves.
+        -   `BorrowKeyModal.jsx`: Modal para emprestar uma chave.
+        -   `ConfirmModal.jsx`: Modal de confirmação genérico.
+        -   `AlertDialog.jsx`: Modal para exibir mensagens de alerta.
+
+## Como Rodar
+
+### Pré-requisitos
+
+-   [Node.js](https://nodejs.org/en/download/) (versão 14 ou superior)
+-   [npm](https://www.npmjs.com/get-npm) ou [Yarn](https://yarnpkg.com/)
+
+### Instalação e Execução
+
+1.  Certifique-se de que o **Backend** esteja rodando e acessível (geralmente em `http://localhost:8080`).
+2.  Navegue até o diretório `Frontend`:
+    ```bash
+    cd Frontend
+    ```
+3.  Instale as dependências:
+    ```bash
+    npm install
+    # ou yarn install
+    ```
+4.  Inicie o servidor de desenvolvimento:
+    ```bash
+    npm run dev
+    # ou yarn dev
+    ```
+    A aplicação estará disponível em `http://localhost:5173` (ou outra porta disponível).
+
+## Interação com o Backend
+
+O frontend se comunica com o backend através de requisições HTTP para os endpoints da API. As configurações de proxy para o backend são definidas no arquivo `vite.config.js` para facilitar o desenvolvimento local, evitando problemas de CORS.
