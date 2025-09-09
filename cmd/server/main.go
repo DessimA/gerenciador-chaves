@@ -9,11 +9,11 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/portaria-keys/internal/infrastructure/config"
-	"github.com/portaria-keys/internal/infrastructure/database"
-	"github.com/portaria-keys/internal/infrastructure/http"
-	"github.com/portaria-keys/internal/infrastructure/repository"
-	"github.com/portaria-keys/internal/usecase"
+	"github.com/dessima/gerenciador-chaves-api/infrastructure/config"
+	"github.com/dessima/gerenciador-chaves-api/infrastructure/database"
+	"github.com/dessima/gerenciador-chaves-api/infrastructure/http/router"
+	"github.com/dessima/gerenciador-chaves-api/infrastructure/repository"
+	"github.com/dessima/gerenciador-chaves-api/usecase"
 )
 
 func main() {
@@ -33,7 +33,7 @@ func main() {
 	db := dbClient.Database(cfg.DatabaseName)
 	keyRepo := repository.NewKeyRepository(db)
 	userRepo := repository.NewUserRepository(db)
-	reservationRepo := repository.NewReservationRepository(db)
+	reservationRepo := repository.NewReservationRepository(db, dbClient) // Passa o client para suportar transações
 
 	// Initialize Use Cases
 	keyUseCase := usecase.NewKeyUseCase(keyRepo, reservationRepo)
@@ -41,7 +41,7 @@ func main() {
 	reservationUseCase := usecase.NewReservationUseCase(reservationRepo, keyRepo, userRepo)
 
 	// Setup Router
-	r := router.Setup(userUseCase, keyUseCase, reservationUseCase)
+	r := router.Setup(cfg, userUseCase, keyUseCase, reservationUseCase)
 
 	server := &http.Server{
 		Addr:    cfg.ServerPort,

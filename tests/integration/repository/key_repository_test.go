@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/portaria-keys/internal/entity"
-	"github.com/portaria-keys/internal/infrastructure/repository"
+	"github.com/dessima/gerenciador-chaves-api/entity"
+	"github.com/dessima/gerenciador-chaves-api/infrastructure/repository"
 	"github.com/stretchr/testify/assert"
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/wait"

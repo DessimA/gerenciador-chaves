@@ -2,6 +2,8 @@ FROM golang:1.25.1-alpine AS builder
 
 WORKDIR /app
 
+RUN apk add --no-cache git
+
 COPY go.mod ./go.mod
 RUN go mod download && go mod verify
 

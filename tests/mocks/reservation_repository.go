@@ -3,7 +3,7 @@ package mocks
 import (
 	"context"
 
-	"github.com/portaria-keys/internal/entity"
+	"github.com/dessima/gerenciador-chaves-api/entity"
 	"github.com/stretchr/testify/mock"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )

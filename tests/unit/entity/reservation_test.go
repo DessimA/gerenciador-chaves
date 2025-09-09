@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/portaria-keys/internal/entity"
+	"github.com/dessima/gerenciador-chaves-api/entity"
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )

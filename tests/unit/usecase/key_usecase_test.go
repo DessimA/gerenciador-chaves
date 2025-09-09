@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/portaria-keys/internal/entity"
-	"github.com/portaria-keys/internal/usecase"
-	"github.com/portaria-keys/tests/mocks"
+	"github.com/dessima/gerenciador-chaves-api/entity"
+	"github.com/dessima/gerenciador-chaves-api/usecase"
+	"github.com/dessima/gerenciador-chaves-api/tests/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"go.mongodb.org/mongo-driver/bson/primitive"
