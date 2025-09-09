@@ -5,6 +5,17 @@
   text-align: center;
   color: #ccc;
   font-size: 0.9rem;
+  display: flex; /* Use flexbox for alignment */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+}
+
+.github-profile-image {
+  width: 80px; /* Adjust size as needed */
+  height: 80px;
+  border-radius: 50%; /* Make it round */
+  margin-bottom: 1rem; /* Space between image and text */
+  border: 2px solid #FFC107; /* Add a border with theme color */
 }
 
 .social-links {
@@ -18,12 +29,11 @@
   color: #f0f0f0;
   text-decoration: none;
   margin: 0 0.5rem;
-  display: flex; /* To center the icon */
-  align-items: center; /* To center the icon */
-  justify-content: center; /* To center the icon */
-}
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .social-links a:hover {
-  color: #f0ad4e;
+  color: #FFC107; /* Theme color on hover */
 }

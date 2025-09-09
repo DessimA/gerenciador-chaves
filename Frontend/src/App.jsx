@@ -23,8 +23,12 @@ function App() {
   const [alertMessage, setAlertMessage] = useState('');
 
   const [showKeyFormModal, setShowKeyFormModal] = useState(false);
-  const [showBorrowModal, setShowBorrowModal] = useState(false); // New state for borrow modal visibility
-  const [keyToBorrow, setKeyToBorrow] = useState(null); // New state to store key ID to borrow
+  const [showBorrowModal, setShowBorrowModal] = useState(false);
+  const [keyToBorrow, setKeyToBorrow] = useState(null);
+
+  const [showReturnModal, setShowReturnModal] = useState(false); // New state for return modal visibility
+  const [keyToReturn, setKeyToReturn] = useState(null); // New state to store key ID to return
+  const [borrowerToConfirmReturn, setBorrowerToConfirmReturn] = useState(''); // New state for borrower name
 
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
@@ -90,16 +94,35 @@ function App() {
     }
   };
 
-  const handleReturnKey = async (id) => {
+  // Function to open return confirmation modal
+  const confirmReturn = (keyId, borrowerName) => {
+    setKeyToReturn(keyId);
+    setBorrowerToConfirmReturn(borrowerName);
+    setShowReturnModal(true);
+  };
+
+  // Function to handle actual return after modal confirmation
+  const handleReturnConfirmed = async () => {
     try {
-      await fetch(`${API_URL}/keys/${id}/return`, {
+      await fetch(`${API_URL}/keys/${keyToReturn}/return`, {
         method: 'PUT',
       });
       fetchKeys();
     } catch (error) {
       console.error('Erro ao devolver chave:', error);
       showAlert('Erro ao devolver chave. Tente novamente.');
+    } finally {
+      setShowReturnModal(false);
+      setKeyToReturn(null);
+      setBorrowerToConfirmReturn('');
     }
+  };
+
+  // Function to cancel return
+  const handleReturnCancelled = () => {
+    setShowReturnModal(false);
+    setKeyToReturn(null);
+    setBorrowerToConfirmReturn('');
   };
 
   // Function to open the modal
@@ -110,14 +133,20 @@ function App() {
 
   // Function to handle actual deletion after modal confirmation
   const handleDeleteConfirmed = async () => {
+    console.log('Attempting to delete key:', keyToDelete);
     try {
       await fetch(`${API_URL}/keys/${keyToDelete}`, {
         method: 'DELETE',
       });
       fetchKeys();
+      console.log('Key deleted successfully.');
     } catch (error) {
       console.error('Erro ao excluir chave:', error);
       showAlert('Erro ao excluir chave. Tente novamente.');
+    } finally {
+      setShowDeleteModal(false);
+      setKeyToDelete(null);
+      console.log('Delete modal closed.');
     }
   };
 
@@ -197,7 +226,7 @@ function App() {
                     {key.status === 'disponivel' ? (
                       <button onClick={() => openBorrowModal(key.id)}><FontAwesomeIcon icon={faHandshake} /></button>
                     ) : (
-                      <button onClick={() => handleReturnKey(key.id)}><FontAwesomeIcon icon={faUndo} /></button>
+                      <button onClick={() => confirmReturn(key.id, key.borrower_name)}><FontAwesomeIcon icon={faUndo} /></button>
                     )}
                     <button onClick={() => handleEditKey(key)}><FontAwesomeIcon icon={faEdit} /></button>
                     <button onClick={() => confirmDelete(key.id)}><FontAwesomeIcon icon={faTrash} /></button>
@@ -239,6 +268,14 @@ function App() {
         onClose={closeBorrowModal}
         onConfirmBorrow={handleConfirmBorrow}
         showAlert={showAlert}
+      />
+
+      {/* Return Confirmation Modal */}
+      <ConfirmModal
+        message={`Tem certeza de que ${borrowerToConfirmReturn || 'o retirante'} fez a devolução da chave?`}
+        isOpen={showReturnModal}
+        onConfirm={handleReturnConfirmed}
+        onCancel={handleReturnCancelled}
       />
     </>
   );
