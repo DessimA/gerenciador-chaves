@@ -30,7 +30,7 @@ function App() {
   const [keyToReturn, setKeyToReturn] = useState(null); // New state to store key ID to return
   const [borrowerToConfirmReturn, setBorrowerToConfirmReturn] = useState(''); // New state for borrower name
 
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+  const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   const fetchKeys = async () => {
     try {

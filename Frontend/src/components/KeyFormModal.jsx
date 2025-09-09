@@ -3,7 +3,7 @@ import './KeyFormModal.css'; // Create KeyFormModal.css later
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 function KeyFormModal({ isOpen, onClose, onSave, showAlert }) {
   const [apartment, setApartment] = useState('');
