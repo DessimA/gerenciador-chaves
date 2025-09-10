@@ -113,8 +113,9 @@ A API expõe os seguintes endpoints:
     ```
 3.  Execute o container, mapeando a porta 8080:
     ```bash
-    docker run -p 8080:8080 key-manager-backend
+    docker run -p 8080:8080 -v $(pwd)/keys.db:/app/keys.db key-manager-backend
     ```
+    *O volume `-v $(pwd)/keys.db:/app/keys.db` garante que o banco de dados `keys.db` seja persistido no seu diretório local, mesmo que o contêiner seja removido.*
     A API estará disponível em `http://localhost:8080`.
 
 ## Exemplos de Uso (com `curl`)

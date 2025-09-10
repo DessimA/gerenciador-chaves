@@ -26,14 +26,13 @@ Este é o frontend do sistema de gerenciamento de chaves, uma aplicação web in
 
 ## Como Rodar
 
-### Pré-requisitos
+Para rodar o frontend, a maneira mais recomendada é utilizar o **Docker Compose** a partir da raiz do projeto, que irá orquestrar tanto o backend quanto o frontend. Consulte o `README.md` principal na raiz do projeto para instruções completas sobre como iniciar a aplicação com Docker Compose.
 
--   [Node.js](https://nodejs.org/en/download/) (versão 14 ou superior)
--   [npm](https://www.npmjs.com/get-npm) ou [Yarn](https://yarnpkg.com/)
+### Rodando Localmente (Apenas para Desenvolvimento)
 
-### Instalação e Execução
+Se você deseja rodar o frontend de forma isolada para desenvolvimento, siga os passos abaixo:
 
-1.  Certifique-se de que o **Backend** esteja rodando e acessível (geralmente em `http://localhost:8080`).
+1.  Certifique-se de que o **Backend** esteja rodando e acessível (geralmente em `http://localhost:8080` se rodando localmente, ou o endereço do seu contêiner/serviço).
 2.  Navegue até o diretório `Frontend`:
     ```bash
     cd Frontend
@@ -52,4 +51,6 @@ Este é o frontend do sistema de gerenciamento de chaves, uma aplicação web in
 
 ## Interação com o Backend
 
-O frontend se comunica com o backend através de requisições HTTP para os endpoints da API. As configurações de proxy para o backend são definidas no arquivo `vite.config.js` para facilitar o desenvolvimento local, evitando problemas de CORS.
+O frontend se comunica com o backend através de requisições HTTP. Quando rodando via Docker Compose, um servidor Nginx atua como proxy reverso. Isso significa que todas as chamadas de API do frontend são feitas para o caminho `/api/` (ex: `/api/keys`). O Nginx, configurado no arquivo `nginx.conf` dentro deste diretório, redireciona essas requisições para o serviço de backend (`http://backend:8080`) dentro da rede Docker.
+
+Para desenvolvimento local (sem Docker Compose), as chamadas de API podem ser direcionadas diretamente para `http://localhost:8080` ou conforme configurado na variável de ambiente `VITE_API_URL`.
