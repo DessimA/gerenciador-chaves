@@ -10,10 +10,7 @@ function Footer() {
     <footer className="footer">
       <img src={githubProfileImageUrl} alt="GitHub Profile" className="github-profile-image" />
       <p>Desenvolvido por DessimA</p>
-      <div className="social-links">
-        <a href="https://www.instagram.com/dessim_dt" target="_blank" rel="noopener noreferrer">
-          <FontAwesomeIcon icon={faInstagram} size="2x" />
-        </a>
+      <div className="social-links">        
         <a href="https://www.linkedin.com/in/dessim" target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={faLinkedin} size="2x" />
         </a>
